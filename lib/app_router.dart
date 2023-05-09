@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'buisness_logic/cubit/characters_cubit.dart';
 import 'constants/strings.dart';
+import 'data/models/characters.dart';
 import 'data/repository/characters_repository.dart';
 import 'presentation/screens/characters_details.dart';
 import 'presentation/screens/characters_screen.dart';
@@ -26,8 +27,14 @@ class AppRouter {
             child: CharactersScreen(),
           ),
         );
+      // blocProvider.value(value:charactersCubit) i can pass cubit from widget to widget characterDetailsScreen
       case characterDetailsScreen:
-        return MaterialPageRoute(builder: (_) => CharacterDetailsScreen());
+        final character = settings.arguments
+            as Character; // i will pass it argument to navigate to detail screen
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                create: (BuildContext context) => charactersCubit,
+                child: CharacterDetailsScreen(character: character)));
     }
   }
 }
