@@ -33,7 +33,8 @@ class AppRouter {
             as Character; // i will pass it argument to navigate to detail screen
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
-                create: (BuildContext context) => charactersCubit,
+                create: (BuildContext context) =>
+                    CharactersCubit(charactersRepository),
                 child: CharacterDetailsScreen(character: character)));
     }
   }
